@@ -39,8 +39,7 @@ Building models of the world is an essential part of computational thinking. Mos
 
 
 
-FIXME: figure here
-
+![Going from goals in the real world to computational implementations.](figures/From World To Implementation.png)
 
 
 ### Basic building blocks of algorithms
