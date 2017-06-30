@@ -136,6 +136,8 @@ There are several algorithms for constructing a tree that tries to minimise the 
 
 One way to get pairwise distances is to align the sequences and then iterate through all the columns in the alignment to count how often we see a differences out of how many alignment columns we have. We can take that approach to refine the distances computation step of the algorithm, and here we have a choice between constructing pairwise alignments between all pairs of sequences or constructing a multiple alignment of all the sequences. Given our choice of which kind of alignment we want, we then have different choices in algorithms for constructing alignments. Similarly, given a pairwise distances matrix, we have different choices of algorithms for constructing the actual tree.
 
+![Refining an algorithm.](figures/refinement.png)
+
 Constructing the algorithm consist of refining the steps we need to do until we are at a level where all the computations are expressed unambiguously and in a way we can instruct a computer to perform them. And once we get there, we can start worrying about implementing the algorithm.
 
 
