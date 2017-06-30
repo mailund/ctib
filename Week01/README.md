@@ -114,6 +114,30 @@ for i in range(10):
 If the code examples here confuse you, do not worry. Learning how to read and write Python code is what this weeks exercises are all about.
 
 
+### Example
+
+As an example of going from a goal to an implementation for achieving that goal, we can consider building a phylogenetic tree for a set of species where we have sequenced their genome (or at least a set of homologous genes from each species). So, we assume we have a sequence of DNA
+
+```
+... ACAACTGTGAGTACCATGTA ...
+```
+
+per species and we want to build a tree that shows the evolutionary relationship between the species.
+
+This might sound like a very natural setup to you, but it is far from it. DNA is *not* a text string from a four-letter alphabet. It is a molecule with a rather complex folded structure. We represent DNA as strings because we abstract away all the biochemistry to get to the essentials that we need for our computation goal. Species do not really exist either. Individuals exist, but species is an abstract we place on Nature in order to understand how some individuals are closer related to some than others and how genes are likely to have been passed to these individuals from the past and how genes will be passed to future generations. Out in Nature, there is no such thing as a species. Which, of course, also means that trying to describe the relationship between a set of species as a tree is another abstraction. In Nature, the different individuals within what we call the species are differently related, and at a genetic level might be differently related to individuals in other species, but we abstract all of that away to represent evolutionary relationships as a tree.
+
+So, with these abstractions in place---the model of the world we will consider---we can focus on our goal: to build a tree that reflects the relationship between the species. This is a valid goal, but not really a computational goal; at least, it is not obvious what *exactly* it is that we want to compute, except that we want a tree at the end. Before we can start developing algorithms for a task, we need to be much more concrete with what the actual goal is.
+
+Often, what we need to do before we can start to think about algorithms is to formulate the goals we are interested in as mathematical properties within the model of the world we consider. Often, this means phrasing the goals as optimisation problems. For building a phylogenetic tree, one approach is to say that we reduce our data to all pair-wise distances between the species' genomes and we want to build a tree that, if you add the branch lengths between any two species, you get a value as close to the genomic distance between them as possible.
+
+Phrasing goals as computational tasks is part of modelling, in many ways. We need to go from somewhat fuzzy real-world goals to something we can describe mathematically and that we can compute on. Just as we want to use models that capture the essentials of the aspects of the world that we are interested in, and abstracts away irrelevant details, we want our computational goals to capture our ideas of what the "real" goals are, but in a form that is simple enough that we can actually work on it mathematically and computationally. For the phylogenetic tree, if we assume that differences between two genomes accumulate over time, and that our species are related in some tree phylogeny, then it makes sense that if we add up the distance we see in the tree we should get the distance between genomes, which justifies this rephrasing of the original goal.
+
+There are several algorithms for constructing a tree that tries to minimise the difference in distance between the actual pairwise distances and the distance in the tree, but we won't worry about them here. We will just consider the construction problem at the highest level. What we have as input is a sequence from each species and as output we need a tree. We will construct the tree from pairwise distances, so step one in the high-level algorithm is computing distances between the sequences, and the second step is then to construct a tree from these distances. So we have a two-step algorithm---although it is described at a very high level that we cannot quite implement without specifying more details.
+
+One way to get pairwise distances is to align the sequences and then iterate through all the columns in the alignment to count how often we see a differences out of how many alignment columns we have. We can take that approach to refine the distances computation step of the algorithm, and here we have a choice between constructing pairwise alignments between all pairs of sequences or constructing a multiple alignment of all the sequences. Given our choice of which kind of alignment we want, we then have different choices in algorithms for constructing alignments. Similarly, given a pairwise distances matrix, we have different choices of algorithms for constructing the actual tree.
+
+Constructing the algorithm consist of refining the steps we need to do until we are at a level where all the computations are expressed unambiguously and in a way we can instruct a computer to perform them. And once we get there, we can start worrying about implementing the algorithm.
+
 
 
 ## Exercises
