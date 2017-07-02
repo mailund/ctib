@@ -25,33 +25,33 @@ At this level, of course, we are just describing what the algorithm should do, b
 
 ```python
 # lst is a list of numbers
-sorted = []
+s = []
 for x in lst:
-	# sorted contains contains all the element we have
+	# s contains contains all the element we have
 	# seen so far, in sorted order
-	<update sorted with x>
-lst = sorted
+	<update s with x>
+lst = s
 # lst is now sorted
 ```
 
-Here, if `sorted` contains the elements we have seen so far, in sorted order, and if we iterate through all the elements in `lst`, then at the end of the loop, `sorted` will contain all the elements we need to sort and contain them in sorted order. The property we have inside the loop is a condition we want to be true whenever we start executing the body of the loop, and such properties we usually call *invariants* of the loop. For the invariant to be true, we need to guarantee that if it is true when we enter the body of the loop, then it is also true once we have executed the body o the loop. Plus, we typically want to specify the invariant in a way that, once the loop is completed, we have achieved a goal that matches pre- and post-conditions of the algorithm. In this example, if the invariant is true before and after each loop body execution, then we have sorted the elements in `lst` once we have finished the loop.
+Here, if `s` contains the elements we have seen so far, in sorted order, and if we iterate through all the elements in `lst`, then at the end of the loop, `s` will contain all the elements we need to sort and contain them in sorted order. The property we have inside the loop is a condition we want to be true whenever we start executing the body of the loop, and such properties we usually call *invariants* of the loop. For the invariant to be true, we need to guarantee that if it is true when we enter the body of the loop, then it is also true once we have executed the body o the loop. Plus, we typically want to specify the invariant in a way that, once the loop is completed, we have achieved a goal that matches pre- and post-conditions of the algorithm. In this example, if the invariant is true before and after each loop body execution, then we have sorted the elements in `lst` once we have finished the loop.
 
-Once we specify an invariant of a loop, we must guarantee that it is always true, so at the very least we must make sure that it is true the first time we enter the loop. In this case, it trivially is, because `sorted` is empty and the invariant states that it should contain the elements we have seen so far---which are none when we first enter the loop. Next, we need to construct the loop body such that if the invariant is true before we execute it, it is also true once we are done with it.
+Once we specify an invariant of a loop, we must guarantee that it is always true, so at the very least we must make sure that it is true the first time we enter the loop. In this case, it trivially is, because `s` is empty and the invariant states that it should contain the elements we have seen so far---which are none when we first enter the loop. Next, we need to construct the loop body such that if the invariant is true before we execute it, it is also true once we are done with it.
 
 ```python
 # lst is a list of numbers
-sorted = []
+s = []
 for x in lst:
-	# sorted contains contains all the element we have
+	# s contains contains all the element we have
 	# seen so far, in sorted order
-	smaller = [y for y in sorted if y <= x]
-	larger = [y for y in sorted if y > x]
-	sorted = smaller + [x] + larger
-lst = sorted
+	smaller = [y for y in s if y <= x]
+	larger = [y for y in s if y > x]
+	s = smaller + [x] + larger
+lst = s
 # lst is now sorted
 ```
 
-The body of this loop splits the `sorted` list into those that are smaller than the next element we must insert, and those that are larger. If `sorted` before we enter the loop body, then both `smaller` and `larger` will be sorted, so when we concatenate them with `x` between them, we end up with a sorted list.
+The body of this loop splits the `s` list into those that are smaller than the next element we must insert, and those that are larger. If `s` before we enter the loop body, then both `smaller` and `larger` will be sorted, so when we concatenate them with `x` between them, we end up with a sorted list.
 
 
 ### Big-O notation and reasoning about complexity
