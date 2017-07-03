@@ -53,6 +53,25 @@ lst = s
 
 The body of this loop splits the `s` list into those that are smaller than the next element we must insert, and those that are larger. If `s` before we enter the loop body, then both `smaller` and `larger` will be sorted, so when we concatenate them with `x` between them, we end up with a sorted list.
 
+As a side note, we wouldn't typically implement an algorithm at the outermost level of a Python program like this, so from here and onwards, we will implement algorithms as functions:
+
+```python
+def insertion_sort(lst):
+	"""Sort a list of numbers.
+	Input: lst -- a list of numbers
+	Output: a list of the elements from lst in sorted order.
+	"""
+	s = []
+	for x in lst:
+		# s contains contains all the element we have
+		# seen so far, in sorted order
+		smaller = [y for y in s if y <= x]
+		larger = [y for y in s if y > x]
+		s = smaller + [x] + larger
+	return s
+```
+
+When we implement algorithms as functions we can use the documentation string to specify the pre- and post-conditions of the function. This tells us what the function expects and what it guarantees, and we can use this when we construct other algorithms where we might use a function as a step along the way.
 
 ### Big-O notation and reasoning about complexity
 
