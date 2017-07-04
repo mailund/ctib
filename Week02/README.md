@@ -73,6 +73,49 @@ def insertion_sort(lst):
 
 When we implement algorithms as functions we can use the documentation string to specify the pre- and post-conditions of the function. This tells us what the function expects and what it guarantees, and we can use this when we construct other algorithms where we might use a function as a step along the way.
 
+As another, sorting, example, we can consider so-called *merge sort* that works like this:
+
+```python
+def merge_sort(lst):
+	"""Sort a list of numbers.
+	Input: lst -- a list of numbers
+	Output: a list of the elements from lst in sorted order.
+	"""
+	if len(lst) <= 1:
+		return lst
+	n = len(lst)
+	first = merge_sort(lst[:n//2])
+	second = merge_sort(lst[n//2:])
+	# first is the sorted first half of the elements
+	# second is the sorted second half of the elements
+	return merge(first, second)
+```
+
+This algorithm exploits that we can merge two sorted lists into one list that contains the element of the two lists in sorted order, so we can sort a list by splitting it into two, recursively sort these, and then merge them. We will get back to this idea shortly.
+
+The merging function can look like this:
+
+```python
+def merge(x, y):
+	"""Merge two lists, x and y.
+	Input: sorted lists x and y
+	Output: the merging of x and y -- a list with the elements of x and y in sorted order.
+	"""
+	if len(x) == 0:
+		return y
+	if len(y) == 0:
+		return x
+	# the merge must be the smallest element followed by the merging of the remaining
+	if x[0] < y[0]:
+		return [x[0]] + merge(x[1:], y)
+	else:
+		return [y[0]] + merge(x, y[1:])
+```
+
+Here as well we have some properties that guide us with implementing it. This function is also recursive. It has basis cases when one of the two lists are empty---in which case the merged list is just the other list---but otherwise the merged list must contain the smallest element, which must be at the front of one of the lists, and then the merging of the remaining  element. The latter, we can compute recursively.
+
+Using recursion to design algorithms is a very powerful tool---one we will return to in later weeks---and the way we exploit it in these two functions is that we consider the pre- and post-conditions guaranteed by the function we are actively writing. If we assume that it is going to do what we promise it will do in the documentation string, then we can also use it to solve sub-problems. Which is exactly what we do here.
+
 ### Big-O notation and reasoning about complexity
 
  
