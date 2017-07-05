@@ -118,6 +118,21 @@ Using recursion to design algorithms is a very powerful tool---one we will retur
 
 ### Big-O notation and reasoning about complexity
 
+When we develop algorithms, we want to be able to reason about their complexity at a relatively abstract level. The actual performance of any algorithm, once it is implemented and running on a computer, will depend on how it is implemented, what hardware it is executed on, and which input it works on, and a lot of details that would make it impossible to predict with accuracy how its performance will be. Thus, we abstract away most details of an algorithm and try to figure out a rough estimate of how it will perform, typically up to some unknown factor we can estimate later.
+
+The first, and most important, abstraction we make is to consider all "primitive" operations as being equally expensive in performance. This is not true in any real execution of an algorithm---multiplying numbers takes longer than adding them, unless you multiply with factors of two, and moving values from RAM to the CPU takes longer than manipulating data in the cache, and so forth---but it is a convenient abstraction to get us started. Of course, what a "primitive" operation is, is another issue. Primitive operations would be doing arithmetic on numbers or moving single words of memory around, but usually also includes looking up indices in lists or dictionaries (in Python, these operations take constant time so we consider them primitive). Splitting a list in two, on the other hand, involves copying data from the list into two new lists and is not a primitive operation. In general, what we can consider primitive (constant time) operations and what are not will depend on the programming language you use, and there is not really any easy way to know which are which except from experience. As a rule of thumb, though, whenever an operation involves more than a single primitive data value---like a number or a character---then it is unlikely to be a primitive operation.
+
+Anyway, we consider all primitive operations as equally expensive, and we consider the runtime complexity of an algorithm the number of operations that it will need to perform on a given input. Now, the performance some times depends on the actual input, and at other times just on the size of the input. Usually, we will abstract away the actual input and think only in terms of the size of the input. When we do this, we need to decide on whether we should consider the complexity for a given size the *worst-case performance* for that size---where we work out what the worst possible input could be and how many operations the algorithm needs to perform for that input---or the *average-case performance* where we figure out, from some assumptions about how input would be distributed, what the average number of operations the algorithm will need to perform.
+
+Since there is some uncertainty in how expensive the primitive operations really are, we are not too careful about counting the *exact* correct number of operations an algorithm will perform. We usually just want to know the *order* of the performance, by which we mean some function of the input size that, up to a constant, will be an upper bound on the actual algorithmic performance.
+
+If the (worst-case or average-case) time an algorithm uses on input of size *n* is *T(n)*, and we have some function *f(n)* and some constant *c* such that for all *n*---perhaps of some minimal size *n>N*---*T(n) < cf(n)*, then we say that the algorithm runs in *order* *f(n)* and we write this as *O(f(n))*.
+
+Notice that this notation is only used to give an upper bound on the performance. The algorithm might actually be more efficient than the function *f(n)* indicates---although we usually want to find a function that gives a tight bound. The constant *c* could be considered part of the function *f(n)*, but we include it in the definition so we don't have to worry about the actual time any operation takes---by including the constant in the definition, the actual algorithm can run a hundred times faster or slower than the function indicates and still be in the same order complexity.
+
+To get a feeling for how we use the O-notation, we can consider the two sorting algorithms from above.
+
+
  
 ## Exercises
 * Functions (JVG 4)
