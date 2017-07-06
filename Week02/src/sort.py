@@ -17,16 +17,24 @@ def merge(x, y):
 	Input: sorted lists x and y
 	Output: the merging of x and y -- a list with the elements of x and y in sorted order.
 	"""
-	if len(x) == 0:
-		return y
-	if len(y) == 0:
-		return x
-	# the merge must be the smallest element followed by the merging of the remaining
-	if x[0] < y[0]:
-		return [x[0]] + merge(x[1:], y)
-	else:
-		return [y[0]] + merge(x, y[1:])
+	n = len(x)
+	m = len(y)
+	z = [None] * (n + m)
 
+	def helper(i, j, k):
+		if i == n:
+			z[k:] = y[j:]
+		elif j == m:
+			z[k:] = x[i:]
+		elif x[i] < y[j]:
+			z[k] = x[i]
+			helper(i+1, j, k+1)
+		else:
+			z[k] = y[j]
+			helper(i, j+1, k+1)
+
+	helper(0, 0, 0)
+	return z
 
 def merge_sort(lst):
 	"""Sort a list of numbers.

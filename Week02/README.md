@@ -130,9 +130,94 @@ If the (worst-case or average-case) time an algorithm uses on input of size *n* 
 
 Notice that this notation is only used to give an upper bound on the performance. The algorithm might actually be more efficient than the function *f(n)* indicates---although we usually want to find a function that gives a tight bound. The constant *c* could be considered part of the function *f(n)*, but we include it in the definition so we don't have to worry about the actual time any operation takes---by including the constant in the definition, the actual algorithm can run a hundred times faster or slower than the function indicates and still be in the same order complexity.
 
-To get a feeling for how we use the O-notation, we can consider the two sorting algorithms from above.
+To get a feeling for how we use the O-notation, we can consider the two sorting algorithms from above. We start with insertion sort:
 
+```python
+def insertion_sort(lst):
+	"""Sort a list of numbers.
+	Input: lst -- a list of numbers
+	Output: a list of the elements from lst in sorted order.
+	"""
+	s = []
+	for x in lst:
+		# s contains contains all the element we have
+		# seen so far, in sorted order
+		smaller = [y for y in s if y <= x]
+		larger = [y for y in s if y > x]
+		s = smaller + [x] + larger
+	return s
+```
 
+This algorithm has one main loop that runs through `lst`. If the length of this list is *n*, then we can reason that the running time of the algorithm is *n* times the average time it takes to execute the body of the loop. Inside the loop, we split the list `s` into `smaller` and `larger` and then concatenate these with `[x]` in the middle. We construct the two lists using list comprehension, and while this doesn't look like a loop, it actually is---also hinted at by the keyword `for` used in the expressions---and constructing the `smaller` and `larger` lists take time proportional to the length of `s`. Concatenating the lists also take time proportional to the length of the lists, so that expression take time proportional to the length of `s` plus one. So the running time of insertion sort is *n* times the average length of `s` during the algorithm. In the first iteration, `s` is empty, so it has length 0. The second time we execute the loop-body it has length 1, and it grows by one for each iteration: 0, 1, 2, ..., *n*-1. The mean of this is *n/2*. Thus, the running time for the algorithm is *O(n \* n/2)=O(n^2)*.
+
+Now for merge sort:
+
+```python
+def merge_sort(lst):
+	"""Sort a list of numbers.
+	Input: lst -- a list of numbers
+	Output: a list of the elements from lst in sorted order.
+	"""
+	if len(lst) <= 1:
+		return lst
+	n = len(lst)
+	first = merge_sort(lst[:n//2])
+	second = merge_sort(lst[n//2:])
+	# first is the sorted first half of the elements
+	# second is the sorted second half of the elements
+	return merge(first, second)
+```
+
+Here, the reasoning is slightly more complex because the solution is recursive. If we define *T(n)* to be the running time for sorting a list of length *n*, then we write a recursion for the time complexity as well. Inside the function, we split the initial list into two lists of half the length. This involves copying the values from the old list into the two new ones, and takes linear time: *O(n)*. Then the two smaller lists are sorted, which must take time 2 \* *T(n/2)*. Finally, the lists are merged. We will, for now, assume that this can be done in linear time---*O(n)*---since this is possible, although the solution we have right now doesn't do this. Anyway, the complexity for the algorithm is then *T(n) = O(n) + T(n/2)*. One can solve this recursion and the solution is *T(n) = O(n log n)*. So we see that merge sorting is more efficient than insertion sorting since eventually, for some *n*, any *n log n* function will be dominated by an *n^2* function.
+
+If you measure the running time of the two algorithms, though, you will find that the merge sort we have implemented here is slower than insertion sort. This is because the merge function does not, in fact, run in linear time.
+
+```python
+def merge(x, y):
+	"""Merge two lists, x and y.
+	Input: sorted lists x and y
+	Output: the merging of x and y -- a list with the elements of x and y in sorted order.
+	"""
+	if len(x) == 0:
+		return y
+	if len(y) == 0:
+		return x
+	# the merge must be the smallest element followed by the merging of the remaining
+	if x[0] < y[0]:
+		return [x[0]] + merge(x[1:], y)
+	else:
+		return [y[0]] + merge(x, y[1:])
+```
+
+We can write a recursion for the running time for this function as well. What the function does is that it takes the smallest element from the two lists, make a list of a single element out of that, and then concatenate it with the result of a recursive call. This concatenation involves copying all the list elements, so the running time is *T(n) = O(n) + T(n-1)* which is *O(n^2)* and not *O(n)* as we want it to be. If we could modify the algorithm so the recursion would be *T(n) = O(1) + T(n-1)*, then we would have a linear time version---we can do that by not concatenating lists. Here is a way to do that that uses indices into the lists and constructs a new lists of the right length before the merging.
+
+```python
+def merge(x, y):
+	"""Merge two lists, x and y.
+	Input: sorted lists x and y
+	Output: the merging of x and y -- a list with the elements of x and y in sorted order.
+	"""
+	n = len(x)
+	m = len(y)
+	z = [None] * (n + m)
+
+	def helper(i, j, k):
+		if i == n:
+			z[k:] = y[j:]
+		elif j == m:
+			z[k:] = x[i:]
+		elif x[i] < y[j]:
+			z[k] = x[i]
+			helper(i+1, j, k+1)
+		else:
+			z[k] = y[j]
+			helper(i, j+1, k+1)
+
+	helper(0, 0, 0)
+	return z
+```
+
+As an exercise, try to annotate this function with pre- and post-conditions for the `helper` function that will help you prove that it works correctly.
  
 ## Exercises
 * Functions (JVG 4)
