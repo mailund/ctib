@@ -208,7 +208,13 @@ When it comes to implementations, you will want to test them. Even if you convin
 
 The point of testing is not to guarantee that an implementation is correct. There is not really any way of doing this through testing; if your implementation works as intended on all the input you provide it in your testing, that does not guarantee that the *next* data you could give it will not trigger an error. We use formal reasoning to construct algorithms that we can mathematically prove will solve a given problem, but when it comes to an actual implementation and testing it, the goal is not to test correctness but rather to try to break the implementation. If we can break our implementation, that is great. It means that we have discovered an error, and now we can fix it. Don't be kind to your code. Hit it as hard as you can. The harder you hit it without breaking it, the more confidence you will have in it, but the goal of testing really is to break the code if possible.
 
+How you attack your code when testing depends both on your actual code and your ingenuity. As long as you keep in mind that the goal is to break the code if possible, you are on the right path. There are some rules of thumbs, however, that often helps you trigger errors.
 
+Always give your code some common-case data first. You will feel silly if you do a lot of testing and then find out that the code doesn't handle the most basic cases.
+
+After that, throw special cases at the code. For numbers, make sure you use both negative and positive numbers and zero. For lists, give your code the empty list and lists of length one. What the special cases are depend on your code and your data, but always try to throw all those you can think of at your code.
+
+Finally, if you can generate representative but random data, use that to test your code. Even when we try as hard as we can, it is hard to figure out data that really stresses our functions. Using random data enables us to test our code on large collections of input without having to dream up the data ourselves, and as an added benefit, random data is not likely to be coloured by our biased belief of what input data should look like, so it is often more successful at breaking our code.
 
 
 ### Evaluating running times
