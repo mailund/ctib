@@ -219,6 +219,10 @@ Finally, if you can generate representative but random data, use that to test yo
 
 ### Evaluating running times
 
+Just as we should test our code to see if there are errors in its functionality, even when we have proven that the algorithm is correct, we should also test its running time, even if we have proved its running time analytically. It is quite easy to make a mistake in an implementation that doesn't affect the correctness but changes the running time. Therefore, you should always run some experiments to validate that the running time of your implementation is what you would expect.
+
+You can find a Jupiter Notebook [here](src/Performance.ipynb) that does this for the binary search. Download it and experiment with it.
+
  
 ## Exercises:
 
