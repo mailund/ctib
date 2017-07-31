@@ -30,10 +30,10 @@ We can start with implementing a simple linear search. This can work as a substi
 
 ```python
 def linear_search(x, lst):
-	for y in lst:
-		if x == y:
-			return True
-	return False
+  for y in lst:
+    if x == y:
+      return True
+  return False
 ```
 
 To be able to replace this function with the binary search, we need that function to have the same interface.
@@ -50,10 +50,10 @@ The algorithm wants us to check the middle element and then potentially search t
 
 ```python
 def binary_search(x, lst):
-	def recurse(start, end):
-		# search between start and end
-		pass
-	return recurse(0, len(lst))
+  def recurse(start, end):
+    # search between start and end
+    pass
+  return recurse(0, len(lst))
 ```
 
 Now we have set everything up to implement the algorithm, so this is a perfect time for you to try it out yourself. Can you implement the algorithm, as it is described above, by filling out the body of `recurse`?
@@ -66,12 +66,12 @@ Now, `recurse` should search in `lst` between `start` and `end`, but we have to 
 
 ```python
 def binary_search(x, lst):
-	def recurse(start, end):
-		if start == end:
-			return False
-		# other cases here
-		pass
-	return recurse(0, len(lst))
+  def recurse(start, end):
+    if start == end:
+      return False
+    # other cases here
+    pass
+  return recurse(0, len(lst))
 ```
 
 We should also explicitly state the invariant that `start <= end`. We don't really need it right now, but if we want the invariant to be that if `x` is in `lst` then it is in `lst[start:end]`, then we want that additional invariant. It also makes sure that testing `start == end` as the termination condition for the recursion is sufficient.
@@ -80,27 +80,27 @@ It is always a good idea to be explicit about invariants, so let us annotation t
 
 ```python
 def binary_search(x, lst):
-	def recurse(start, end):
-		# Inv: start <= end and x might be in lst[start:end].
-		if start == end:
-			return False
-		# other cases here
-		pass
-	return recurse(0, len(lst))
+  def recurse(start, end):
+    # Inv: start <= end and x might be in lst[start:end].
+    if start == end:
+      return False
+    # other cases here
+    pass
+  return recurse(0, len(lst))
 ```
 
 The invariant, incidentally, also guarantees the post-condition that if we make it past the first `if` statement, then `start < end`.
 
 ```python
 def binary_search(x, lst):
-	def recurse(start, end):
-		# Inv: start <= end and x might be in lst[start:end].
-		if start == end:
-			return False
-		# Inv: start < end
-		# other cases here
-		pass
-	return recurse(0, len(lst))
+  def recurse(start, end):
+    # Inv: start <= end and x might be in lst[start:end].
+    if start == end:
+      return False
+    # Inv: start < end
+    # other cases here
+    pass
+  return recurse(0, len(lst))
 ```
 
 That might come in handy later.
@@ -109,17 +109,17 @@ But first, let us consider the next step in the algorithm. Here we need to check
 
 ```python
 def binary_search(x, lst):
-	def recurse(start, end):
-		# Inv: start <= end and x might be in lst[start:end].
-		if start == end:
-			return False
-		i = start + (end - start) // 2
-		if lst[i] == x:
-			return True
-		# Inv: start < end
-		# other cases here
-		pass
-	return recurse(0, len(lst))
+  def recurse(start, end):
+    # Inv: start <= end and x might be in lst[start:end].
+    if start == end:
+      return False
+    i = start + (end - start) // 2
+    if lst[i] == x:
+      return True
+    # Inv: start < end
+    # other cases here
+    pass
+  return recurse(0, len(lst))
 ```
 
 Here, I've both calculated the middle index and checked if the middle element is the one we are searching for. If it is, we should just return `True`.
@@ -128,19 +128,19 @@ All that remains is implementing the two recursive calls when the middle element
 
 ```python
 def binary_search(x, lst):
-	def recurse(start, end):
-		# Inv: start <= end and x might be in lst[start:end].
-		if start == end:
-			return False
-		i = start + (end - start) // 2
-		if lst[i] == x:
-			return True
-		# Inv: start < end	
-		elif lst[i] < x:
-			return recurse(i, end)
-		else:
-			return recurse(start, i)
-	return recurse(0, len(lst))
+  def recurse(start, end):
+    # Inv: start <= end and x might be in lst[start:end].
+    if start == end:
+      return False
+    i = start + (end - start) // 2
+    if lst[i] == x:
+      return True
+    # Inv: start < end	
+    elif lst[i] < x:
+      return recurse(i, end)
+    else:
+      return recurse(start, i)
+  return recurse(0, len(lst))
 ```
 
 This *looks* reasonable, but it is actually incorrect. It is one of those cases where the prose explanation of the algorithm is imprecise and we need to do better in the code. It is correct that we should look in the first or last half of the list, respectively, but implicit in calling recursively is the expectation that we only call recursively on problems that are *smaller* than the one we are already trying to deal with. If we simply call recursively with the exact same problem as we are trying to handle we will never get anyway.
@@ -153,19 +153,19 @@ From how we compute `i` we know that `start <= i < end`. This means that we can 
 
 ```python
 def binary_search(x, lst):
-	def recurse(start, end):
-		# Inv: start <= end and x might be in lst[start:end].
-		if start == end:
-			return False
-		i = start + (end - start) // 2
-		if lst[i] == x:
-			return True
-		# Inv: start < end	
-		elif lst[i] < x:
-			return recurse(i + 1, end)
-		else:
-			return recurse(start, i - 1)
-	return recurse(0, len(lst))
+  def recurse(start, end):
+    # Inv: start <= end and x might be in lst[start:end].
+    if start == end:
+      return False
+    i = start + (end - start) // 2
+    if lst[i] == x:
+      return True
+    # Inv: start < end	
+    elif lst[i] < x:
+      return recurse(i + 1, end)
+    else:
+      return recurse(start, i - 1)
+  return recurse(0, len(lst))
 ```
 
 We leave out the `i`th element in the recursive calls, so all should be fine now.
@@ -180,19 +180,19 @@ Remember that the invariant considers the interval `start:end` with `start` incl
 
 ```python
 def binary_search(x, lst):
-	def recurse(start, end):
-		# Inv: start <= end and x might be in lst[start:end].
-		if start == end:
-			return False
-		i = start + (end - start) // 2
-		if lst[i] == x:
-			return True
-		# Inv: start < end	
-		elif lst[i] < x:
-			return recurse(i, end)
-		else:
-			return recurse(start, i)
-	return recurse(0, len(lst))
+  def recurse(start, end):
+    # Inv: start <= end and x might be in lst[start:end].
+    if start == end:
+      return False
+    i = start + (end - start) // 2
+    if lst[i] == x:
+      return True
+    # Inv: start < end	
+    elif lst[i] < x:
+      return recurse(i, end)
+    else:
+      return recurse(start, i)
+  return recurse(0, len(lst))
 ```
 
 Binary search is a very simple algorithm, but as you can see, there is some work to be done to go from a high-level description of an algorithm---even a simple one such as this---to a working implementation.
@@ -203,6 +203,13 @@ The take home message is this: there are always some details missing in a prose 
 
 
 ### Testing an algorithm 
+
+When it comes to implementations, you will want to test them. Even if you convince yourself that the algorithm is absolutely correct, all special cases are handled, all invariants are satisfied, all pigs are fed and ready to fly, there is always a chance that you have made a mistake at some point during the implementation. Testing can help reduce the chance of this.
+
+The point of testing is not to guarantee that an implementation is correct. There is not really any way of doing this through testing; if your implementation works as intended on all the input you provide it in your testing, that does not guarantee that the *next* data you could give it will not trigger an error. We use formal reasoning to construct algorithms that we can mathematically prove will solve a given problem, but when it comes to an actual implementation and testing it, the goal is not to test correctness but rather to try to break the implementation. If we can break our implementation, that is great. It means that we have discovered an error, and now we can fix it. Don't be kind to your code. Hit it as hard as you can. The harder you hit it without breaking it, the more confidence you will have in it, but the goal of testing really is to break the code if possible.
+
+
+
 
 ### Evaluating running times
 
