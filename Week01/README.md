@@ -15,4 +15,7 @@
 
 * Introduction to Python programming and Jupyter notebooks. 
 * Branching and looping (JVG 2 + 3)
+* Basic data types and working with lists.
+
+
 
