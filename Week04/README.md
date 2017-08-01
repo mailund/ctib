@@ -86,15 +86,15 @@ The merge sort algorithm we saw the second week is an example of divide and conq
 ```python
 from random import randint
 def quick_sort(x):
-	# base case
-	if len(x) <= 1:
-		return x
-	# recursive case
-	pivot = x[randint(0, len(x)-1)]
-	equal = [e for e in x if e == pivot]
-	smaller = [e for e in x if e < pivot]
-	larger = [e for e in x if e > pivot]
-	return quick_sort(smaller) + equal + quick_sort(larger)
+  # base case
+  if len(x) <= 1:
+    return x
+  # recursive case
+  pivot = x[randint(0, len(x)-1)]
+  equal = [e for e in x if e == pivot]
+  smaller = [e for e in x if e < pivot]
+  larger = [e for e in x if e > pivot]
+  return quick_sort(smaller) + equal + quick_sort(larger)
 ```
 
 The general form for divide and conquer is this:
@@ -111,7 +111,56 @@ In the implementation above, I create new lists for `equal`, `smaller`, and `lar
 
 ### Dynamic programming
 
+A final example of a general trick I will mention is *dynamic programming*. The name is more fancy than the idea; the idea is simply this: instead of computing the same values several times in a recursive call, use a table and remember them.
+
+Any recursive solution to a problem, we can also think of as a solution that builds up from simple parts and combine to a more complex part; we can think of starting with the base cases and then combining solutions rather than splitting complicated cases and recursing. In practise, one approach might be much simpler than another---in the quick sort example, it would not be obvious where to start the computation at the most basic level because it depends on the pivot at a higher level---but in principle, we can reverse the order of computations.
+
+Consider computing the factorial of a number, *n*. This is a classical recursive problem since *n!=n*(n-1)!*. In Python, we can implement this recursively as
+
+```python
+def rec_factorial(n):
+  if n <= 1:
+    return 1
+  else:
+    return n * rec_factorial(n - 1)
+```
  
+However, we could also start from the basic case and build up the solution like this:
+
+```python
+def dynprog_factorial(n):
+  table = [1] * n
+  for i in range(1, n):
+    table[i] = i * table[i-1]
+  return n * table[n-1]
+```
+
+Here, I use a table to store intermediate values, but I could just keep an accumulator variable. I keep the table here to show the similarity with the dynamic programming example coming up...
+
+There isn't any difference in running time between the two solutions. The second use more memory because it stores the table, but the running time is the same. Everything we use in the computation is only used once. Consider, however, Fibonnacci numbers instead. Here the *n*'th number depends on the two previous numbers, so a recursive solution will have to compute the same values more than once.
+
+```python
+def rec_fibonacci(n):
+  if n <= 2:
+    return 1
+  else:
+    return rec_fibonacci(n-1) + rec_fibonacci(n - 2)
+```
+
+Here, if we store the intermediate values, we get a much faster solution:
+
+```python
+def dynprog_fibonacci(n):
+  table = [1] * n
+  for i in range(3, n):
+    table[i] = table[i-1] + table[i-2]
+  return table[n-1] + table[n-2]
+```
+
+As an exercise, I suggest you experiment with the two solutions and compare their running time.
+
+
+
 ## Exercises
 
 * Dynamic programming examples (JVG 13)
