@@ -15,11 +15,12 @@ print(smallest_and_largest(x))
 print(x[:0])
 
 
+from random import randint
 def quick_sort(x):
 	if len(x) < 2:
 		return x
 
-	pivot = x[1] # FIXME
+	pivot = x[randint(0, len(x)-1)]
 	equal = [e for e in x if e == pivot]
 	smaller = [e for e in x if e < pivot]
 	larger = [e for e in x if e > pivot]

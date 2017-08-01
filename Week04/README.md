@@ -77,6 +77,38 @@ There is a lot of invariant going on in this simple example, and normally we wou
 
 ### Recursion and "divide and conquer"
 
+A general trick for developing an algorithm involves recursion and so-called "divide and conquer". The basic idea by recursion is to reduce a problem to a smaller problem of the same type that we can solve, well, recursively. With recursive solutions to a problem, we have some base cases we can handle directly and more complicated cases that we reduce to problems closer to the base cases. What the base cases are, and what it means to be closer to a base case, varies from problem to problem.
+
+Divide and conquer is just the same idea. You have a problem that you split into sub-problems that you manage recursively, and then you combine the results of the recursive calls into a solution to the problem at the original level.
+
+The merge sort algorithm we saw the second week is an example of divide and conquer. Another one is the so-called *quick sort* algorithm. For the latter, the idea is this: A list of length zero or 1 is already sorted, so that is a base case where we just return the input; for longer lists, we pick a random element, called the *pivot*, and split the list into those smaller, equal to, and larger than this element. A sorted list must have the smaller elements at the front, then the elements equal to the pivot, and then the larger elements at the end, but to be sorted, the smaller and larger elements must first be sorted. These are smaller sets, so we can sort them recursively. The entire algorithm looks like this:
+
+```python
+from random import randint
+def quick_sort(x):
+	# base case
+	if len(x) <= 1:
+		return x
+	# recursive case
+	pivot = x[randint(0, len(x)-1)]
+	equal = [e for e in x if e == pivot]
+	smaller = [e for e in x if e < pivot]
+	larger = [e for e in x if e > pivot]
+	return quick_sort(smaller) + equal + quick_sort(larger)
+```
+
+The general form for divide and conquer is this:
+
+1. Split the problem into subproblems
+2. Recursively solve subproblems
+3. Combine the solutions to the subproblems into a solution to the main problem
+
+Here, the splitting is done based on the pivot, the recursive solutions are to `smaller` and `larger`, and the combination at the end is list concatenation.
+
+The worst-case complexity of quick sort is actually O(n^2) because we might might end up with almost all elements in `smaller` or `larger`, but if we pick a random pivot, then we expect the two subproblems to be of roughly the same size, and then then running time is O(n log n). Because there is very little overhead in the algorithm, it is quick---thus the name.
+
+In the implementation above, I create new lists for `equal`, `smaller`, and `larger`. This does incur some overhead that can be avoided by just rearranging the elements in `x`, but the code for that is less elegant. I leave that as an exercises for you to try out.
+
 ### Dynamic programming
 
  
