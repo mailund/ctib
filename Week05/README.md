@@ -14,7 +14,7 @@ Search trees are binary trees with the following property: For all inner nodes, 
 
 ### Heaps
 
-The heap property of a tree is this: the value at the root of a tree is always smaller than all values in its subtrees. This means that we can always access the smallest element in a set that we have stored in a heap tree by accessing the value in the root. You can read more about heaps in the [Heaps notebook](src/Heaps.ipynb)
+The heap property of a tree is this: the value at the root of a tree is always smaller than all values in its subtrees. This means that we can always access the smallest element in a set that we have stored in a heap tree by accessing the value in the root. You can read more about heaps in the [Heaps notebook](src/Heaps.ipynb).
 
 
 
