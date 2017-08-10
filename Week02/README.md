@@ -7,7 +7,7 @@
 
 ## Reading material
 
-Read JVG chapters 4 and 5.
+Read JVG chapters 4 and 5 and sections 10-10.2.
 
 ## Lectures notes
 
@@ -224,5 +224,10 @@ def merge(x, y):
 As an exercise, try to annotate this function with pre- and post-conditions for the `helper` function that will help you prove that it works correctly.
  
 ## Exercises
-* Functions (JVG 4)
-* Basic data structures (JVG 5)
+
+Clone the notebook library for [week 2](https://notebooks.azure.com/mailund/libraries/ctib-week02) into your library. Then do the exercises in the notebooks
+
+1. Working with lists
+2. Working with functions
+3. Designing algorithms
+
