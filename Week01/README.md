@@ -5,6 +5,12 @@
 * **To understand how we go from problem domains to models, specify problems and goals, derive algorithmic solutions, and finally implement our solutions.**
 * **To get familiarity with programming in the Python programming language and using Jupyter notebooks.**
 
+## Reading material
+
+The textbook *Introduction to Computation and Programming Using Python* by John V. Guttag we will henceforth refer to as JVG.
+
+For this week, please read chapters 1 and 2, sections 3.1-3.2 and 3.4, and sections 5.1-5.3 and 5.5.
+
 ## Lecture notes
 
 ### What is computational thinking?
