@@ -9,7 +9,7 @@
 
 The textbook *Introduction to Computation and Programming Using Python* by John V. Guttag we will henceforth refer to as JVG.
 
-For this week, please read chapters 1 and 2, sections 3.1-3.2 and 3.4, and sections 5.1-5.3 and 5.5.
+For this week, please read chapters 1 and 2, and sections 3.1-3.2 and 3.4.
 
 ## Lecture notes
 
@@ -150,9 +150,34 @@ Constructing the algorithm consist of refining the steps we need to do until we 
 
 ## Exercises
 
-* Introduction to Python programming and Jupyter notebooks. 
-* Branching and looping (JVG 2 + 3)
-* Basic data types and working with lists.
+For exercises in *Computational Thinking in Bioinformatics* we use Jupyter notebooks and we will use the Azure Notebooks server to manage these. You can access a library containing the exercises for first week [here](https://notebooks.azure.com/mailund/libraries/ctib-week01).
 
+Clicking on the link should send you to a login window that looks like this:
 
+![Login window.](figures/azure1.png)
+
+Write your AU mail address as the email address. You do not need to use your password, then, but will be sent to a page that looks like this:
+
+![Work or school account.](figures/azure2.png)
+
+Pick *Work or school account* and you will be sent to another login window:
+
+![Second login window.](figures/azure3.png)
+
+Here, you log in using your AU id and the password you have for your email account at AU.
+
+![Logging in.](figures/azure4.png)
+
+Now, you should be looking at my library for the week. You want your own copy, so you should click on the *clone* icon, the one that looks like two sheets of paper (shown in the red circle in the screenshot below).
+
+![Cloning the library.](figures/azure5.png)
+
+This opens a dialogue where you can give the library a name and an ID. You can just use the default values here.
+
+![Cloning dialogue.](figures/azure6.png)
+
+When you have cloned the library, you should see a list of files (in the case of the first week there should be two files). Do the exercises in this order:
+
+1. Introduction to Python programming and Jupyter notebooks. 
+2. Branching and looping.
 
