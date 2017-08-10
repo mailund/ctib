@@ -5,6 +5,10 @@
 * To learn how to *reason about computations* to construct *correct algorithms*.
 * To learn how to *reason about complexity* so you can judge the efficiency of different solutions.
 
+## Reading material
+
+Read JVG chapters 4 and 5.
+
 ## Lectures notes
 
 When we develop algorithms we naturally want them to be both correct and efficient. Constructing them such that they are, or convincing ourselves that a given algorithm is, requires some reasoning tricks.
