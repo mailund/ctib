@@ -226,6 +226,7 @@ You can find a Jupyter Notebook [here](src/Performance.ipynb) that does this for
  
 ## Exercises:
 
-* Testing and debugging (JVG 6)
-* Plotting (JVG 11.1)
-* Complexity (JVG 9)
+* [Implementing binary search](src/exercises/Implementing binary search.ipynb)
+
+
+
