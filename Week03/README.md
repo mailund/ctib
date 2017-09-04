@@ -226,7 +226,7 @@ You can find a Jupyter Notebook [here](src/Performance.ipynb) that does this for
  
 ## Exercises:
 
-* [Implementing binary search](src/exercises/Implementing\ binary\ search.ipynb)
+* [Implementing binary search](exercises/Implementing_binary_search.ipynb)
 
 
 
