@@ -222,6 +222,8 @@ def merge(x, y):
 ```
 
 As an exercise, try to annotate this function with pre- and post-conditions for the `helper` function that will help you prove that it works correctly.
+
+It might be easier to implement `merge` using a loop instead of a recursive `helper` function. Try to rewrite the function to do this.
  
 ## Exercises
 
