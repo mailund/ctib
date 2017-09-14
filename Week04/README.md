@@ -159,8 +159,9 @@ def dynprog_fibonacci(n):
 
 As an exercise, I suggest you experiment with the two solutions and compare their running time.
 
+Read also [Pairwise alignments and edit distance](Pairwise_alignments.ipynb) for more examples of dynamic programming.
 
 
 ## Exercises
 
-* Dynamic programming examples (JVG 13)
+* [Partitioning](exercises/Partitioning.ipynb)
