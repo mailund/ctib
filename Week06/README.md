@@ -9,5 +9,5 @@
 * [Shortest path algorithms](Shortest_paths.ipynb)
  
 ## Exercises
-* Classical graph algorithms (JVG 12.2)
+* Do the exercises in the notes and then do the [Handin](Handin.ipynb) exercises. These should be handed in through blackboard.
 
